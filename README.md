@@ -32,7 +32,7 @@ Setup user database
 Setup transactions database  
 `~$ cat transaction_db.sql | psql -U <username> -h <host>`
 
-#### Setup Turtlecoin service
+#### Setup ZumCoin service
 Run this once to generate a wallet container.
 `~$ ./zum-service --container-file <container name> -p <password> -g`  
 
