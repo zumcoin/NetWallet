@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"./turtlecoin-rpc-go/walletd"
+	"./zumcoin-rpc-go/walletd"
 	_ "github.com/lib/pq"
 
 	"github.com/julienschmidt/httprouter"

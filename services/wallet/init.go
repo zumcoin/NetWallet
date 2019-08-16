@@ -17,9 +17,9 @@ var (
 
 const (
 	// Forking config.
-	addressFormat          = "^TRTL([a-zA-Z0-9]{95}|[a-zA-Z0-9]{183})$"
-	divisor        float64 = 100 // This is 100 for TRTL
-	transactionFee         = 10  // This is 10 for TRTL
+	addressFormat          = "^Zum1([a-zA-Z0-9]{95}|[a-zA-Z0-9]{183})$"
+	divisor        float64 = 100000000 // This equals 1.00 ZUM coin
+	transactionFee         = 10000000  // This is 0.10	ZUM Coin
 )
 
 func init() {
@@ -55,8 +55,8 @@ func init() {
 		panic("Set the RPC_PWD env variable")
 	}
 	if rpcPort, err = strconv.Atoi(os.Getenv("RPC_PORT")); rpcPort == 0 || err != nil {
-		rpcPort = 8070
-		println("Using default RPC_PORT - 8070")
+		rpcPort = 17070
+		println("Using default RPC_PORT - 17070")
 	}
 
 	wallet := NewService()

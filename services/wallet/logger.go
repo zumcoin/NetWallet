@@ -10,7 +10,7 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"./turtlecoin-rpc-go/walletd"
+	"./zumcoin-rpc-go/walletd"
 )
 
 var (
@@ -53,12 +53,12 @@ func NewService() *TurtleService {
 		LastBlock:          1,
 		Timeout:            5000,
 		PollingInterval:    10000,
-		RPCPort:            8070,
+		RPCPort:            17070,
 	}
 	return service
 }
 
-// Start - starts the turtle-service
+// Start - starts the zum-service
 func (service *TurtleService) Start() error {
 	service.loadConfig()
 	go service.pinger()

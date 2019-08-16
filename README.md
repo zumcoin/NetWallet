@@ -1,6 +1,6 @@
-# Shellnet
+# ZUM NetWallet
 
-![screenshot](/docs/screenshot-shellnet-login.png)
+![screenshot](/docs/screenshot-netwallet-login.png)
 
 ## Setup on Ubuntu 16.04+
 Install the required packages.  
@@ -22,7 +22,7 @@ go get \
 	github.com/dchest/captcha
 ```
 
-Clone the Shellnet repo in your ${GOPATH}/src.
+Clone the ZUM NetWallet repo in your ${GOPATH}/src.
 
 #### Postgres Setup
 [Configure postgres user](https://www.linode.com/docs/databases/postgresql/how-to-install-postgresql-on-ubuntu-16-04/)  
@@ -34,10 +34,10 @@ Setup transactions database
 
 #### Setup Turtlecoin service
 Run this once to generate a wallet container.
-`~$ ./turtle-service --container-file <container name> -p <password> -g`  
+`~$ ./zum-service --container-file <container name> -p <password> -g`  
 
-Point turtle-service at an existing daemon like this
-`~$ ./turtle-service --rpc-password <rpc password> --container-file <container name> -p <container password> -d --daemon-address <daemon DNS or IP address> --daemon-port <daemon port>`
+Point zum-service at an existing daemon like this
+`~$ ./zum-service --rpc-password <rpc password> --container-file <container name> -p <container password> -d --daemon-address <daemon DNS or IP address> --daemon-port <daemon port>`
 
 #### Start redis-server
 
@@ -46,7 +46,7 @@ Edit these files:
 * services/main/run.sh  
 ```bash
 #!/usr/bin/env bash
-HOST_URI='https://shellnet.pw' \ # Web wallet address
+HOST_URI='https://netwallet.zumcoin.org' \ # Web wallet address
 HOST_PORT=':8080' \ # Internal server port
 USER_URI='http://localhost:8081' \ # Internal requests to user api
 WALLET_URI='http://localhost:8082' \ # Internal requests to wallet api
@@ -59,8 +59,8 @@ DB_USER=<postgres username> \ # Postgres DB username, NOT system account usernam
 DB_PWD=<postgres password> \ # Postgres DB password, NOT system account password
 HOST_URI='http://localhost' \ # Internal wallet api
 HOST_PORT=':8082' \ # Internal wallet api port
-RPC_PWD=<turtle-service RPC password>  \ # Your turtle-service RPC password
-RPC_PORT=':8070' \ # Your turtle-service RPC port
+RPC_PWD=<zum-service RPC password>  \ # Your zum-service RPC password
+RPC_PORT=':17070' \ # Your zum-service RPC port
 go run wallet.go utils.go
 ```
 * services/user/run.sh  
@@ -79,16 +79,9 @@ go run users.go utils.go
 `~$ cd services/user ; ./run.sh & disown`  
 
 
-## Todo
-* Finish walletd integration
-* Make Front-end pretty
-* add documentation
-* automate tasks
-* add tests
-
 
 ## Dependencies
 * Redis
 * Postgresql
 * Go
-* TurtleCoin wallet daemon
+* ZumCoin wallet daemon

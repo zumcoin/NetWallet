@@ -1,21 +1,21 @@
-# Forking Shellnet
+# Forking ZUM NetWallet
 
-Forking should be easy for most recent TurtleCoin forks that work with turtle-service.
+Forking should be easy for most recent ZumCoin forks that work with zum-service.
 
-You DO NOT need to change any references to `turtle-service`.  Since `turtle-service` is using RPC, Shellnet doesn't care what what your forked service is called.
+You DO NOT need to change any references to `zum-service`.  Since `zum-service` is using RPC, ZUM NetWallet doesn't care what what your forked service is called.
 
 ### Coin Settings
 *services/wallet/wallet.go*
 ```go
-var addressFormat = "^TRTL([a-zA-Z0-9]{95}|[a-zA-Z0-9]{183})$"
+var addressFormat = "^Zum1([a-zA-Z0-9]{95}|[a-zA-Z0-9]{183})$"
 var divisor float64 = 100
 var transactionFee = 10
 ```
 
 *services/main/assets/js/account.js*
 ```js
-const tickerSymbol = 'TRTL';
-const decimalPlaces = 2;
+const tickerSymbol = 'ZUM';
+const decimalPlaces = 8;
 ```
 
 In both database scripts you may need to change address length to match yours.  
@@ -57,11 +57,11 @@ address char(99) NOT NULL); /* Change to your required address length */
 Replace *services/main/assets/images/brand-logo.png* with your own logo.
 Replace *services/main/assets/images/background.svg* with your own website background.  If you don't use an svg file, replace css references to this in *main.css* and *account.css*
 
-There are a few places you may need to make frontend changes for now  Here are some of them, just do a search for `TRTL` or `Turtle` to find any I missed.
+There are a few places you may need to make frontend changes for now  Here are some of them, just do a search for `ZUM` or `ZumCoin` to find any I missed.
 
 *services/main/templates/index.html*
 ```html
-<span class="tagline">A secure, easy-to-use wallet for TurtleCoin payments</span>
+<span class="tagline">A secure, easy-to-use wallet for ZumCoin payments</span>
 ```
 
 *services/main/templates/account.html*
@@ -73,11 +73,11 @@ In `printf "%.2f"`, 2f is the number of decimal places to display. To show 4 dec
 </tr>
 <tr>
   <th>Available</th>
-  <td><span id="available_balance">{{ printf "%.2f" (index .Wallet "balance" "availableBalance") }} TRTL</span></td>
+  <td><span id="available_balance">{{ printf "%.2f" (index .Wallet "balance" "availableBalance") }} ZUM</span></td>
 </tr>
 <tr>
   <th>Locked / Unconfirmed</th>
-  <td><span id="locked_amount">{{ printf "%.2f" (index .Wallet "balance" "lockedAmount") }} TRTL</span></td>
+  <td><span id="locked_amount">{{ printf "%.2f" (index .Wallet "balance" "lockedAmount") }} ZUM</span></td>
 </tr>
 ...
 ```
@@ -85,9 +85,9 @@ In `printf "%.2f"`, 2f is the number of decimal places to display. To show 4 dec
 <div class="table-container">
     <form action={{ printf "%s%s" .PageAttr.URI "/account/send_transaction"}} method="POST">
         <div class="input-field grey-input">
-            <h2>Send Transaction</h2><small>fee: 0.1 TRTL</small><br>
+            <h2>Send Transaction</h2><small>fee: 0.1 ZUM</small><br>
             <span class="caret-icon"></span>
-            <input id="send_to" type="text" name="destination" placeholder="Enter destination address..." pattern="^TRTL([a-zA-Z0-9]{95}|[a-zA-Z0-9]{183})\s*$" required/>
+            <input id="send_to" type="text" name="destination" placeholder="Enter destination address..." pattern="^Zum1([a-zA-Z0-9]{95}|[a-zA-Z0-9]{183})\s*$" required/>
             <span class="amount-icon"></span>
             <input id="send_amount" type="text" name="amount" placeholder="Enter Amount.." pattern="^\d+\.{0,1}\d{0,6}$" required/>
             <span class="paymentid-icon"></span>
@@ -98,11 +98,11 @@ In `printf "%.2f"`, 2f is the number of decimal places to display. To show 4 dec
 ```html
 <div class="container tx">
  ...
-<td><b>Amount</b><br>{{ index $ele "Amount" }}&nbsp;TRTL</td>
+<td><b>Amount</b><br>{{ index $ele "Amount" }}&nbsp;ZUM</td>
 {{ else }}
 <td><strong>Deposit</strong></td>
 <td><b>Hash</b><br>{{ index $ele "Hash" }}<br><b>PaymentId</b><br>"{{ index $ele "PaymentID"}}"</td>
-<td><b>Amount</b><br>{{ index $ele "Amount" }}&nbsp;TRTL</td>
+<td><b>Amount</b><br>{{ index $ele "Amount" }}&nbsp;ZUM</td>
 {{ end }}
 ...
 </div>
