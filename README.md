@@ -1,6 +1,6 @@
 # ZUM NetWallet
 
-![screenshot](/docs/screenshot-netwallet-login.png)
+![screenshot]()
 
 ## Setup on Ubuntu 16.04+
 Install the required packages.  
