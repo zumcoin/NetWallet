@@ -25,8 +25,8 @@ func init() {
 	}
 }
 
-// TurtleService - daemon config
-type TurtleService struct {
+// ZumService - daemon config
+type ZumService struct {
 	MaxPollingFailures int
 	PollingFailures    int
 	BindAddress        string
@@ -42,9 +42,9 @@ type TurtleService struct {
 	mux                sync.Mutex // only allow one goroutine to access a variable
 }
 
-// NewService - creates a turtleservice with the default options
-func NewService() *TurtleService {
-	service := &TurtleService{
+// NewService - creates a Zumservice with the default options
+func NewService() *ZumService {
+	service := &ZumService{
 		MaxPollingFailures: 30,
 		PollingFailures:    0,
 		BindAddress:        "localhost",
@@ -59,7 +59,7 @@ func NewService() *TurtleService {
 }
 
 // Start - starts the zum-service
-func (service *TurtleService) Start() error {
+func (service *ZumService) Start() error {
 	service.loadConfig()
 	go service.pinger()
 	go service.saver()
@@ -68,7 +68,7 @@ func (service *TurtleService) Start() error {
 }
 
 // loadConfig - loads data from data file
-func (service *TurtleService) loadConfig() {
+func (service *ZumService) loadConfig() {
 	conf, err := os.Open("./data/ha.data")
 	if err != nil {
 		panic(err)
@@ -84,7 +84,7 @@ func (service *TurtleService) loadConfig() {
 }
 
 // saves the wallet every save interval if the wallet is synced
-func (service *TurtleService) saver() {
+func (service *ZumService) saver() {
 	for ; ; time.Sleep(time.Millisecond * time.Duration(service.SaveInterval)) {
 		if service.isSynced() {
 			fmt.Println("wallet is synced")
@@ -95,7 +95,7 @@ func (service *TurtleService) saver() {
 	}
 }
 
-func (service *TurtleService) scanner() {
+func (service *ZumService) scanner() {
 	fmt.Println("scanner started")
 	for ; ; time.Sleep(time.Duration(service.ScanInterval) * time.Millisecond) {
 		result := map[string]interface{}{}
@@ -145,7 +145,7 @@ func (service *TurtleService) scanner() {
 }
 
 // checks if the wallet responds to rpc calls in the timeout period
-func (service *TurtleService) pinger() {
+func (service *ZumService) pinger() {
 	for ; ; time.Sleep(time.Duration(service.PollingInterval) * time.Millisecond) {
 		stat := make(chan int, 1)
 		go func() {
@@ -172,7 +172,7 @@ func (service *TurtleService) pinger() {
 }
 
 // check if the wallet is synced, saves the current block in a file
-func (service *TurtleService) isSynced() bool {
+func (service *ZumService) isSynced() bool {
 	var jsonResponse map[string]interface{}
 	response := walletd.GetStatus(
 		service.RPCPassword,
@@ -187,7 +187,7 @@ func (service *TurtleService) isSynced() bool {
 }
 
 // Save - saves the wallet
-func (service *TurtleService) Save() {
+func (service *ZumService) Save() {
 	walletd.Save(
 		service.RPCPassword,
 		service.BindAddress,
@@ -196,7 +196,7 @@ func (service *TurtleService) Save() {
 }
 
 // updates the values in ./data/ha.data
-func (service *TurtleService) updateData() {
+func (service *ZumService) updateData() {
 	f, err := os.Create("./data/ha.data")
 	if err != nil {
 		fmt.Println(err)
