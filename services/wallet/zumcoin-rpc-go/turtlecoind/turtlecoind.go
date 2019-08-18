@@ -6,7 +6,7 @@ Please see the included LICENSE file for more information
 
 */
 
-package turtlecoind
+package zumcoind
 
 import (
 	"bytes"
